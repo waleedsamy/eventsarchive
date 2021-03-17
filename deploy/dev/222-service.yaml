@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+ name: eventsarchive
+ namespace: hero-dev
+ labels:
+   name: eventsarchive
+spec:
+ selector:
+   tier: backend
+   name: eventsarchive
+ type: ClusterIP
+ ports:
+  - name: grpc
+    protocol: TCP
+    port: 6001
+    targetPort: 6001
+  - name: rest
+    protocol: TCP
+    port: 9001
+    targetPort: 9001

@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+  grpc:
+    build: .
+    command: ["npm", "run", "grpcServerDev"]
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: development
+    ports:
+      - 6001:6001
+
+  rest:
+    build: .
+    command: ["npm", "run", "restServerDev"]
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: development
+    ports:
+      - 9001:9001
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: events
+      POSTGRES_DB: events
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8082:8080"
+    environment:
+      URL: http://localhost:9001/swagger.json

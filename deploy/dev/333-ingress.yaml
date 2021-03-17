@@ -1,0 +1,17 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: eventsarchive
+  namespace: hero-dev
+  labels:
+    name: eventsarchive
+spec:
+  rules:
+  - host: eventsarchive.internal.hero.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: eventsarchive
+          servicePort: 9001
+

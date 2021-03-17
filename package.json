@@ -1,0 +1,45 @@
+{
+  "name": "eventsarchive",
+  "version": "0.0.1",
+  "description": "service to saves and retrieves historical events",
+  "main": "server/grpc/index.js",
+  "scripts": {
+    "grpcServer": "NODE_ENV=local LOG_FORMAT=pretty LOG_LEVEL=debug node server/grpc/index.js",
+    "restServer": "NODE_ENV=local LOG_FORMAT=pretty LOG_LEVEL=debug node server/rest/index.js",
+    "grpcServerDev": "NODE_ENV=development LOG_FORMAT=pretty LOG_LEVEL=debug node server/grpc/index.js",
+    "restServerDev": "NODE_ENV=development LOG_FORMAT=pretty LOG_LEVEL=debug node server/rest/index.js",
+    "test": "NODE_ENV=test LOG_SUPPRESS=true ./node_modules/mocha/bin/mocha --timeout 10000 --exit test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waleedsamy/eventsarchive.git"
+  },
+  "author": "",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/waleedsamy/eventsarchive/issues"
+  },
+  "homepage": "https://github.com/waleedsamy/eventsarchive#readme",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.2.11",
+    "@grpc/proto-loader": "^0.5.6",
+    "async": "^3.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "luxon": "^1.26.0",
+    "nconf": "^0.11.2",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.5.1",
+    "winston": "^3.3.3",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "faker": "^5.4.0",
+    "lodash": "^4.17.21",
+    "mocha": "^8.3.2",
+    "sequelize-cli": "^6.2.0",
+    "sqlite3": "^5.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "eventsDB": {
+    "username": "test",
+    "password": "events",
+    "database": "events_dev",
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "storage": "events_dev.sqlite"
+  }
+}

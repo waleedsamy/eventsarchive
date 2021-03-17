@@ -1,0 +1,276 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "service to saves and retrieves historical events",
+        "version": "0.0.1",
+        "title": "EventsArchive",
+        "contact": {
+            "email": "myself@hero.com"
+        },
+        "license": {
+            "name": "GPL-2.0",
+            "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html"
+        }
+    },
+    "host": "localhost:9001",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "events",
+            "description": "save and retrieve historical events"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/event": {
+            "post": {
+                "tags": [
+                    "events"
+                ],
+                "summary": "Add an event",
+                "description": "",
+                "operationId": "addEvent",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Event object that needs to be saved",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/EventWithId"
+                        }
+                    },
+                    "500": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/filter": {
+            "get": {
+                "tags": [
+                    "events"
+                ],
+                "summary": "Filter events",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "pageNumber",
+                        "in": "query",
+                        "type": "integer",
+                        "default": "1"
+                    },
+                    {
+                        "name": "resultPerPage",
+                        "in": "query",
+                        "type": "integer",
+                        "default": "10"
+                    },
+                    {
+                        "name": "since",
+                        "in": "query",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2020-07-21",
+                        "default": "2020-07-21"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "type": "string",
+                        "format": "email",
+                        "example": "abc@hero.com"
+                    },
+                    {
+                        "name": "component",
+                        "in": "query",
+                        "type": "string",
+                        "example": "inventory"
+                    },
+                    {
+                        "name": "environment",
+                        "in": "query",
+                        "type": "string",
+                        "example": "production"
+                    },
+                    {
+                        "name": "message",
+                        "type": "string",
+                        "example": "error"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/FilterEventsResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Event": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "unix epoc time",
+                    "default": "1615985221"
+                },
+                "email": {
+                    "type": "string",
+                    "fromat": "email",
+                    "default": "abc@heor.com"
+                },
+                "component": {
+                    "type": "string",
+                    "default": "inventory"
+                },
+                "environment": {
+                    "type": "string",
+                    "default": "production"
+                },
+                "message": {
+                    "type": "string",
+                    "default": "the buyer #123456 has placed an order successfully"
+                },
+                "payload": {
+                    "type": "object",
+                    "default": {
+                        "order_id": 123,
+                        "amount": 300,
+                        "created_at": 1615985221
+                    }
+                }
+            }
+        },
+        "EventWithId": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "uuid",
+                    "default": "39f5af84-8969-4716-9586-561b092f943e"
+                },
+                "createdAt": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "unix epoc time",
+                    "default": "1615985221"
+                },
+                "email": {
+                    "type": "string",
+                    "fromat": "email",
+                    "default": "abc@heor.com"
+                },
+                "component": {
+                    "type": "string",
+                    "default": "inventory"
+                },
+                "environment": {
+                    "type": "string",
+                    "default": "production"
+                },
+                "message": {
+                    "type": "string",
+                    "default": "the buyer #123456 has placed an order successfully"
+                },
+                "payload": {
+                    "type": "object",
+                    "default": {
+                        "order_id": 123,
+                        "amount": 300,
+                        "created_at": 1615985221
+                    }
+                }
+            }
+        },
+        "FilterEventsResquest": {
+            "type": "object",
+            "properties": {
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "resultPerPage": {
+                    "type": "integer"
+                },
+                "since": {
+                    "name": "since",
+                    "type": "string",
+                    "format": "date",
+                    "example": "2020-07-21"
+                },
+                "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "abc@hero.com"
+                },
+                "component": {
+                    "type": "string",
+                    "example": "inventory"
+                },
+                "environment": {
+                    "type": "string",
+                    "example": "production"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "error"
+                }
+            }
+        },
+        "FilterEventsResponse": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "type": "object",
+                    "$ref": "#/definitions/FilterEventsResquest"
+                },
+                "recordsCount": {
+                    "type": "integer",
+                    "description": "number of all records that matches the filter criteria"
+                },
+                "hitsCount": {
+                    "type": "integer",
+                    "description": "number of records in the current search page"
+                },
+                "took": {
+                    "type": "integer",
+                    "description": "time it took in searching, in milliseconds"
+                },
+                "hits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/EventWithId"
+                    }
+                }
+            }
+        }
+    }
+}

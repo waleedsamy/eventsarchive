@@ -1,0 +1,69 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: eventsarchive
+ namespace: hero-dev
+ labels:
+  name: eventsarchive
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  minReadySeconds: 10
+  template:
+    metadata:
+      name: eventsarchive
+      namespace: hero-dev
+      labels:
+        tier: backend
+        lang: nodejs
+        name: eventsarchive
+    spec:
+      containers:
+        - name: grpc
+          image: nexus.internal.hero.com/hero/eventsarchive
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 250m
+          env:
+            - name: NODE_ENV
+              value: development
+            - name: DOCKER_HOST_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+          - name: grpc
+            containerPort: 6001
+        - name: rest
+          image: nexus.internal.hero.com/hero/eventsarchive
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 250m
+          env:
+            - name: NODE_ENV
+              value: development
+            - name: DOCKER_HOST_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+          - name: web
+            containerPort: 9001
+      imagePullSecrets:
+        - name: nexusregisterykey
+----
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: eventsarchive
+  namespace: hero-dev
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1beta1
+    kind: Deployment
+    name: eventsarchive
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70

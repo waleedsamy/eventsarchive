@@ -1,0 +1,14 @@
+{
+  "eventsDB": {
+    "username": "postgres",
+    "password": "events",
+    "database": "events",
+    "host": "db",
+    "dialect": "postgres",
+    "pool": {
+      "max": 5,
+      "idle": 30000,
+      "acquire": 60000
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "grpcPort": 6001,
+  "restPort": 9001
+}

@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package eventsArchivePackage;
+
+service Events {
+  rpc addEvent(EventItem) returns (EventItem);
+  rpc filterEvents(FilterEventsRequest) returns (FilterEventsResponse);
+}
+
+message EventItem {
+  string id = 1;
+  int64 created_at = 2; // epoc time
+  string email = 3;
+  string component = 4;
+  string environment = 5;
+  string message = 6;
+  string payload = 7;
+}
+
+message FilterEventsRequest {
+  int32 page_number = 1;     // default 1
+  int32 result_per_page = 2; // default = 10
+  string since = 5;          // iso 8601 date format i.e 2021-03-16
+  string email = 6;
+  string component = 7;
+  string environment = 8;
+  string message = 9;
+}
+
+message FilterEventsResponse {
+  FilterEventsRequest request = 1;
+  int32 records_count = 2;
+  int32 hits_count = 3;
+  int32 took = 4; // how long the search took in milliseconds
+  repeated EventItem hits = 5;
+}
