@@ -141,3 +141,7 @@ events.sqlite
 events_test.sqlite
 events_dev.sqlite
 coding-challenge.pdf
+/.blackbox/pubring.gpg~
+/.blackbox/pubring.kbx~
+/.blackbox/secring.gpg
+/coding-challenge.pdf
