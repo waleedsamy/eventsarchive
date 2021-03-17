@@ -114,6 +114,7 @@
                     },
                     {
                         "name": "message",
+                        "in": "query",
                         "type": "string",
                         "example": "error"
                     }

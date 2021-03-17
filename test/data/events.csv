@@ -1,2 +1,2 @@
 createdAt,email,environment,component,message,payload
-1526123095,​diego@chefhero.com,production,orders,the buyer #123456 has placed an order successfully,{}
+1526123095,​diego@example.com,production,orders,the buyer #123456 has placed an order successfully,{}
